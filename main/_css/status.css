@@ -1,0 +1,41 @@
+.RUN, .ACTIVE {
+    background-color: green;
+    color: white;
+}
+.WAIT {
+    background-color: yellow;
+}
+.PAUSE {
+    background-color: lightgray;
+}
+.DONE, .USED {
+    background-color: darkgreen;
+    color: white;
+}
+.FATAL {
+    background-color: red;
+    color: white;
+}
+.TODO {
+    background-color: red;
+    color: white;
+}
+.SUCCESS {
+    background-color: darkgreen;
+    color: white;
+}
+.STANDBY {
+    background-color: lightpink;
+}
+.ERRORS {
+    background-color: coral;
+    color: white;
+}
+.DEBUG {
+    background-color: darkblue;
+    color: white;
+}
+.API {
+    background-color: darkred;
+    color: white;
+}

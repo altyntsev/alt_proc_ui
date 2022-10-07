@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/_css/main.css" rel="stylesheet">
+    <link href="/_css/sputnik.css" rel="stylesheet">
+    <link href="/_css/tabs.css" rel="stylesheet">
+    <link href="/_css/status.css" rel="stylesheet">
+    <script src="/_libs/lib.js"></script>
+    <script src="/_libs/json_lib.js"></script>
+    <title>{app}</title>
+</head>
+<body>
+<div style="display: flex; flex-direction: column;">
+    <div id="main-top_bar">
+        <a href="/" id="menu-logo" style="color: yellow;">{app}</a>
+        {menu}
+        <a id="request" style="color: yellow;"></a>
+        <a style="flex-grow: 1"></a>
+        <a id="menu-refresh" style="cursor: pointer" hidden>
+            <span style="font-size: 30px;">&#8635;</span>
+        </a>
+        <select id="menu-refresh_delta" hidden>
+            <option value="no">no</option>
+            <option value="5">5s</option>
+            <option value="10">10s</option>
+            <option value="20">20s</option>
+            <option value="60">1m</option>
+            <option value="600">10m</option>
+        </select>
+        <a id="menu-user" style="color: yellow;">{user}</a>
+    </div>
+    <div id="error" style="font-family: monospace, Consolas"></div>
+    <div class="margin" hidden id="content"></div>
+</div>
+<script>
+    var app
+</script>
+<script type="module">
+    import {devtools} from '/_libs/ext/devtools-detect.js'
+
+    if (!devtools.isOpen) {
+        window.onerror = function (error) {
+            alert('Error')
+        }
+        window.onunhandledrejection = function (error) {
+            alert('Error')
+        }
+    }
+
+    import * as main from '/xxx.js'
+
+    app = new main.Main({cfg});
+    if ('init_before_ui' in app) await app.init_before_ui()
+    document.getElementById('content').innerHTML = await app.ui()
+    app.send_ui_done_event()
+    if ('init_after_ui' in app) await app.init_after_ui()
+    document.getElementById('content').style.display = 'block'
+
+    // refresh_delta
+    function apply_refresh_delta(refresh_delta) {
+        if (refresh_delta_interval) {
+            window.clearInterval(refresh_delta_interval)
+        }
+        if ('refresh' in app && refresh_delta !== 'no' ) {
+            refresh_delta_interval = window.setInterval(async function () {
+                await app.refresh()
+                app.send_ui_done_event()
+            }, parseInt(refresh_delta) * 1000)
+        }
+    }
+
+    let refresh_delta_interval
+    const refresh_delta_select = document.getElementById('menu-refresh_delta')
+    refresh_delta_select.addEventListener('change', async (ev) => {
+        await app.refresh()
+        const refresh_delta = refresh_delta_select.value
+        localStorage[refresh_delta_attr] = refresh_delta
+        apply_refresh_delta(refresh_delta)
+    })
+
+    const refresh_delta_attr = 'refresh_delta-' + window.location.pathname
+    if (refresh_delta_attr in localStorage) {
+        refresh_delta_select.value = localStorage[refresh_delta_attr]
+        apply_refresh_delta(refresh_delta_select.value)
+    }
+    if ('refresh' in app) {
+        const refresh_button = document.getElementById('menu-refresh')
+        refresh_button.style.display = 'block'
+        refresh_delta_select.style.display = 'block'
+        refresh_button.addEventListener('click', async function () {
+            await app.refresh()
+            app.send_ui_done_event()
+        })
+        await app.refresh()
+        app.send_ui_done_event()
+    }
+</script>
+</body>
+</html>

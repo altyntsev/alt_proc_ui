@@ -1,0 +1,140 @@
+/* status */
+.alarm {
+    background-color: darkred;
+    color: white;
+}
+/* layout */
+.hor {
+    display: inline-flex;
+    align-items: start;
+}
+.hor_center {
+    display: inline-flex;
+    align-items: center;
+}
+.ver {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.ver_center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.margin {
+    margin: 1rem;
+}
+.padding {
+    padding: 1rem;
+}
+.gap {
+    padding: .5rem;
+}
+.grow {
+    flex-grow: 1;
+}
+.width_100 {
+    display: inline-flex;
+    align-items: start;
+    width: 100%;
+}
+/* popup */
+.popup {
+    background-color: var(--dark-color);
+    color: white;
+    width: 300px;
+    height: 150px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+;
+}
+/* yaml */
+.yaml {
+    background-color: #f1f1f1;
+    font-family: monospace, Consolas;
+    padding: 1rem;
+}
+.yaml_tag {
+    color: darkblue;
+}
+/* html */
+body, html {
+    font-size: 16px;
+    font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+    background-color: var(--light-color);
+    margin: 0;
+    padding: 0;
+}
+table {
+    border-collapse: collapse;
+}
+table td, th {
+    border: solid 1px;
+    padding: 0.2rem;
+    cursor: default;
+}
+table tr:hover {
+    background-color: #eeefff;
+}
+h1 {
+    font-size: 16px;
+}
+button, .button {
+    background-color: var(--dark-color);
+    color: white;
+    border: 0;
+    border-radius: 0;
+    padding: 0.1rem 0.5rem;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+button:disabled {
+    background-color: lightgray;
+    cursor: default;
+}
+input, select, textarea {
+    border: 1px solid #cacaca;
+    border-radius: 3px;
+    padding: .2rem .4rem;
+    font-size: .875rem;
+    outline-color: #bebebe;
+    box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
+    transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+}
+a {
+    text-decoration: none;
+    color: var(--dark-color);
+    font-weight: bold;
+}
+pre {
+    font-family: monospace, Consolas;
+}
+/* main */
+#error {
+    background-color: lightpink;
+}
+#main-top_bar {
+    background: var(--main-color);
+    display: flex;
+    height: 2.8125rem;
+    font-size: 0.8125rem;
+    line-height: 2.8125rem;
+}
+#main-top_bar > a {
+    color: #e6e6e6;
+    border-left: 1px solid var(--main-color);
+    padding: 0 1rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+#main-top_bar > a:first-child {
+    border-left: none;
+}
+.menu_active {
+    background: var(--dark-color);
+}
