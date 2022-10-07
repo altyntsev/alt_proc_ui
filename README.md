@@ -1,1 +1,4 @@
-# alt_proc_ui
+alt_processing UI
+
+[Documentation](https://altyntsev.github.io/)
+
